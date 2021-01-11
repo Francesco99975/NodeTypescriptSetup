@@ -21,7 +21,7 @@ cd ..
 
 #create .gitignore
 touch .gitignore
-printf "node_modules\n.vscode\nnodemon.json\ndist" > .gitignore
+printf "node_modules\n.vscode\nnodemon.json\ndist\ncompiler.sh\npackage-adapter.py\n.env" > .gitignore
 
 #create tsconfig
 wget https://github.com/Francesco99975/NodeTypescriptSetup/releases/download/1.0/tsconfig.json
@@ -35,8 +35,20 @@ git init
 #install typescript
 npm i typescript
 
-#install nodemon as dev dependency
-npm i nodemon --save-dev
+#install nodemon and @types/node as dev dependency
+npm i nodemon @types/node tsc-watch --save-dev
+
+#download compiler script
+wget https://github.com/Francesco99975/NodeTypescriptSetup/releases/download/1.0/package-adapter.py
+
+#give execution permission to compiler script
+chmod +x package-adapter.py
+
+#execute adapter script to adapt package.json to typescript development
+./package-adapter.py
+
+#remove adapter script
+rm package-adapter.py
 
 #crate nodemon.json
 wget https://github.com/Francesco99975/NodeTypescriptSetup/releases/download/1.0/nodemon.json
